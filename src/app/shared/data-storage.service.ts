@@ -12,11 +12,8 @@ export class DataStorageService {
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
-      .put(
-        'https://authentication-project.firebaseio.com/recipes.json',
-        recipes
-      )
-      .subscribe(response => {
+      .put('https://authentication-project-29022.firebaseapp.com/recipes.json', recipes)
+      .subscribe((response) => {
         console.log(response);
       });
   }
@@ -24,20 +21,20 @@ export class DataStorageService {
   fetchRecipes() {
     return this.http
       .get<Recipe[]>(
-        'https://authentication-project.firebaseio.com/recipes.json'
+        'https://authentication-project-29022.firebaseapp.com/recipes.json'
       )
       .pipe(
-        map(recipes => {
-          return recipes.map(recipe => {
+        map((recipes) => {
+          return recipes.map((recipe) => {
             return {
               ...recipe,
-              ingredients: recipe.ingredients ? recipe.ingredients : []
+              ingredients: recipe.ingredients ? recipe.ingredients : [],
             };
           });
         }),
-        tap(recipes => {
+        tap((recipes) => {
           this.recipeService.setRecipes(recipes);
         })
-      )
+      );
   }
 }
