@@ -24,6 +24,19 @@ export class AuthComponent {
     const email = form.value.email;
     const password = form.value.password;
     if (this.isLoginMode) {
+      this.isLoading = true;
+      console.log('Value of isloading', this.isLoading);
+      this.authService.login(email, password).subscribe(
+        (response) => {
+          console.log(response);
+          this.isLoading = false;
+          this.error = null;
+        },
+        (error) => {
+          this.error = error;
+          this.isLoading = false;
+        }
+      );
     } else {
       this.isLoading = true;
       console.log('Value of isloading', this.isLoading);
