@@ -34,7 +34,7 @@ export class AuthComponent {
           this.error = null;
         },
         (error) => {
-          this.error = error.error.error.message;
+          this.error = error;
           this.isLoading = false;
         }
       );
