@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 export class AuthComponent {
   isLoginMode = true;
 
-  onSwitchMode()
+  onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
