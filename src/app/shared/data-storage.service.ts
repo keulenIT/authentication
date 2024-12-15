@@ -12,7 +12,10 @@ export class DataStorageService {
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
     this.http
-      .put('https://authentication-project-29022.firebaseapp.com/recipes.json', recipes)
+      .put(
+        'https://authentication-project-29022-default-rtdb.europe-west1.firebasedatabase.app/recipes.json',
+        recipes
+      )
       .subscribe((response) => {
         console.log(response);
       });
@@ -21,7 +24,7 @@ export class DataStorageService {
   fetchRecipes() {
     return this.http
       .get<Recipe[]>(
-        'https://authentication-project-29022.firebaseapp.com/recipes.json'
+        'https://authentication-project-29022-default-rtdb.europe-west1.firebasedatabase.app/recipes.json'
       )
       .pipe(
         map((recipes) => {
