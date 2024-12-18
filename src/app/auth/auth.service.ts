@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { firebaseToken } from '../../configuration/config';
 
-interface AuthResponseData {
+export interface AuthResponseData {
   kind: string;
   idToken: string;
   email: string;
@@ -19,7 +19,7 @@ export class AuthService {
   signUp(email: string, password: string): Observable<AuthResponseData> {
     return this.http
       .post<AuthResponseData>(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key==${firebaseToken}`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseToken}`,
         {
           email: email,
           password: password,
