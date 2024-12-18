@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
 
+The idea of this project to showcase various skills obtained:
+
+- Deployment of an angular project containing basic components
+- Setup of an auth flow using firebase authentication
+- Set up of github actions to automatically deploy
+- Usage of environment files to not expose any sensitive variables
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
