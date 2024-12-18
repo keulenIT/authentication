@@ -11,7 +11,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: generate-config.js
+      - run: node src/generate-config.js
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
       - run: npm ci && npm run build
