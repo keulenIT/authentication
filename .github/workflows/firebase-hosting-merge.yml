@@ -11,11 +11,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - run: node src/generate-config.js
+      - name: Generate config
+        run: node src/generate-config.js
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API }}
-      - run: npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Install dependencies build
+        run: npm ci && npm run build
+      - name: Deploy to firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_AUTHENTICATION_PROJECT_29022 }}

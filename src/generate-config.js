@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const dir = 'src/configuration';
-const file = 'configuration.ts';
+const dir = "src/configuration";
+const file = "configuration.ts";
 const token = `export const firebaseToken: String = ${process.env.FIREBASE_DETAILS}`;
 
 fs.access(dir, fs.constants.F_OK, (err) => {
@@ -11,17 +11,15 @@ fs.access(dir, fs.constants.F_OK, (err) => {
     try {
       fs.mkdirSync(dir, { recursive: true });
     } catch (error) {
-      console.log(`Error while creating ${dir}. Error is ${error}`);
+      console.log(`Error while  ${dir}. Error is ${error}`);
       process.exit(1);
     }
   }
   try {
-    fs.writeFileSync(dir + '/' + file, token);
-    console.log('Created successfully in', process.cwd());
-    if (fs.existsSync(dir + '/' + file)) {
-      console.log('File is created', path.resolve(dir + '/' + file));
-      const str = fs.readFileSync(dir + '/' + file).toString();
-      console.log(str);
+    fs.writeFileSync(dir + "/" + file, token);
+    console.log("Created successfully in", process.cwd());
+    if (fs.existsSync(dir + "/" + file)) {
+      const str = fs.readFileSync(dir + "/" + file).toString();
     }
   } catch (error) {
     console.error(error);
