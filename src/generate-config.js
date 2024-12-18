@@ -3,7 +3,7 @@ const path = require("path");
 
 const dir = "src/configuration";
 const file = "configuration.ts";
-const token = `export const firebaseToken: String = ${process.env.FIREBASE_API}`;
+const token = `export const firebaseToken: String = ${process.env.FIREBASE_API_KEY}`;
 
 fs.access(dir, fs.constants.F_OK, (err) => {
   if (err) {
@@ -20,6 +20,8 @@ fs.access(dir, fs.constants.F_OK, (err) => {
     console.log("Created successfully in", process.cwd());
     if (fs.existsSync(dir + "/" + file)) {
       console.log("File is created", path.resolve(dir + "/" + file));
+      const str = fs.readFileSync(dir + "/" + file).toString();
+      console.log(str);
     }
   } catch (error) {
     console.error(error);
