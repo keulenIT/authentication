@@ -3,7 +3,7 @@ const path = require("path");
 
 const dir = "src/configuration";
 const file = "config.ts";
-const token = `export const firebaseToken: String = ${process.env.FIREBASE_API_KEY}`;
+const token = `export const firebaseToken: String = '${process.env.FIREBASE_API_KEY}'`;
 
 fs.access(dir, fs.constants.F_OK, (err) => {
   if (err) {
