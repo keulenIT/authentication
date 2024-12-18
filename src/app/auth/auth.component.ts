@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthResponseData, AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
+import { AuthResponseData } from './auth.model';
 
 @Component({
   selector: 'app-auth',
