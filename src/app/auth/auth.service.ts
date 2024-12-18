@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { firebaseToken } from '../../configuration/config';
@@ -15,7 +15,22 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   constructor(private http: HttpClient) {}
-
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An error occurred!';
+    if (!error.error) {
+      return throwError(() => new Error(errorMessage));
+    } else {
+      switch (error.error.error.message) {
+        case 'EMAIL_EXISTS':
+          errorMessage = 'This email already exists';
+          break;
+        case 'INVALID_LOGIN_CREDENTIALS':
+          errorMessage = 'Wrong password or username';
+          break;
+      }
+      return throwError(() => new Error(errorMessage));
+    }
+  }
   signUp(email: string, password: string): Observable<AuthResponseData> {
     return this.http
       .post<AuthResponseData>(
@@ -26,20 +41,7 @@ export class AuthService {
           returnSecureToken: true,
         }
       )
-      .pipe(
-        catchError((error) => {
-          let errorMessage = 'An error occurred!';
-          if (!error.error) {
-            return throwError(() => new Error(errorMessage));
-          } else {
-            switch (error.error.error.message) {
-              case 'EMAIL_EXISTS':
-                errorMessage = 'This email already exists';
-            }
-            return throwError(() => new Error(errorMessage));
-          }
-        })
-      );
+      .pipe(catchError(this.handleError));
   }
 
   login(email: string, password: string): Observable<AuthResponseData> {
@@ -52,19 +54,6 @@ export class AuthService {
           returnSecureToken: true,
         }
       )
-      .pipe(
-        catchError((error) => {
-          let errorMessage = 'An error occurred!';
-          if (!error.error) {
-            return throwError(() => new Error(errorMessage));
-          } else {
-            switch (error.error.error.message) {
-              case 'USER_NOT_FOUND':
-                errorMessage = 'Wrong password or username';
-            }
-            return throwError(() => new Error(errorMessage));
-          }
-        })
-      );
+      .pipe(catchError(this.handleError));
   }
 }

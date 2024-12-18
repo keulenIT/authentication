@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   templateUrl: './auth.component.html',
 })
 export class AuthComponent {
-  private authObs: Observable<AuthResponseData>;
+  private authObs$: Observable<AuthResponseData>;
   private authService = inject(AuthService);
 
   isLoginMode = true;
@@ -28,11 +28,11 @@ export class AuthComponent {
     this.isLoading = true;
 
     if (this.isLoginMode) {
-      this.authObs = this.authService.login(email, password);
+      this.authObs$ = this.authService.login(email, password);
     } else {
-      this.authObs = this.authService.signUp(email, password);
+      this.authObs$ = this.authService.signUp(email, password);
     }
-    this.authObs.subscribe(
+    this.authObs$.subscribe(
       (response) => {
         console.log(response);
         this.isLoading = false;
