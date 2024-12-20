@@ -7,9 +7,9 @@ export class User {
   ) {}
 
   get token() {
-    // if token is expired or doesn't exist, return null
-    if (!!this._tokenExpirationDate || this._tokenExpirationDate < new Date()) {
+    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
     }
+    return this._token;
   }
 }

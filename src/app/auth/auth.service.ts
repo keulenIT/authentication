@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, catchError, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, tap, throwError } from 'rxjs';
 import { firebaseToken } from '../../configuration/config';
 import { AuthResponseData } from './auth.model';
 import { User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
+
   constructor(private http: HttpClient) {}
 
   private handleError(error: HttpErrorResponse) {
@@ -28,14 +29,15 @@ export class AuthService {
   }
   private handleAuthentication(
     email: string,
-    userId: string,
     token: string,
+    userId: string,
     expiresIn: number
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(email, token, userId, expirationDate);
     this.user.next(user);
     console.log('Logged in user is:', user);
+    console.log('Token is:', token);
   }
 
   signUp(email: string, password: string): Observable<AuthResponseData> {
