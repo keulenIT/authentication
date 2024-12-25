@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn = false;
+  recipes = [];
   private userSub$: Subscription;
 
   constructor(
@@ -29,8 +30,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub$.unsubscribe();
   }
 
+  onLogout() {
+    this.authService.logout();
+  }
+
   onSaveData() {
-    this.dataStorageService.storeRecipes();
+    this.dataStorageService.storeRecipes(this.recipes);
   }
 
   onFetchData() {
